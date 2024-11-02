@@ -3,88 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Overlay Custom Button</title>
     <style>
         body {
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            height: 100vh; /* Full height of viewport */
-            overflow: hidden; /* Prevents scrolling on the main page */
-        }
-        .login-button {
-            font-size: 20px;
-            width: 5in; /* Set button width to 5 inches */
-            height: 1.9in; /* Set button height (length) to 1.9 inches */
-            cursor: pointer;
-            color: #FFD700; /* Golden Yellow color for text */
-            background: linear-gradient(45deg, #000000, #e63946); /* Black and Red gradient */
-            border: none;
-            border-radius: 5px;
-            position: absolute;
-            top: 3.5in; /* Button positioned 3.5 inches from the top */
-            z-index: 3; /* Ensures the button is on top of other elements */
-            font-weight: bold;
-            text-shadow: 1px 1px 2px black; /* Slight shadow for a 3D effect */
+            height: 100vh;
+            overflow: hidden;
         }
         .iframe-container {
-            width: 5in; /* Fixed width */
-            height: 8.5in; /* Fixed height */
-            position: relative; /* Relative for overlay positioning */
-            overflow: hidden; /* Prevents scrolling inside the iframe */
-            display: none; /* Initially hidden */
-            border: 2px solid #000; /* Optional border for visibility */
+            width: 5in;
+            height: 8.5in;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #000;
         }
-        .overlay {
+        .custom-button-overlay {
             position: absolute;
-            top: 3in; /* Overlay positioned 3 inches from the top */
+            top: 3in; /* Positioning it as the second button */
             left: 50%;
             transform: translateX(-50%);
-            width: 5in; /* Overlay width to 5 inches */
-            height: 2in; /* Overlay height (length) to 2 inches */
-            background-color: #8B0000; /* Dark red color */
-            z-index: 2; /* Overlay above iframe but below button */
+            width: 5in; /* Width to match the desired size */
+            height: 1.9in; /* Set height to 1.9 inches */
+            background: linear-gradient(45deg, #000000, #e63946); /* Black and red gradient */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #FFD700; /* Golden Yellow text color */
+            font-weight: bold;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px black;
             cursor: pointer;
+            z-index: 2;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <button class="login-button" onclick="openPage()">ReMark</button>
-
     <div class="iframe-container">
         <iframe id="iframe" src="https://hostbuybd.com/qc/" style="width: 100%; height: 100%; border: none;" scrolling="no"></iframe>
-        <div class="overlay" onclick="redirectToCurator()"></div>
+        <!-- Custom overlay simulating the second button -->
+        <div class="custom-button-overlay" onclick="redirectToCurator()">ReMark</div>
     </div>
 
     <script>
-        function openPage() {
-            const iframeContainer = document.querySelector('.iframe-container');
-            iframeContainer.style.display = 'block';
-            const loginButton = document.querySelector('.login-button');
-            loginButton.style.display = 'none'; // Hide the login button when the iframe is shown
-            const iframe = document.getElementById('iframe');
-            iframe.onload = monitorRedirects;
-        }
-
         function redirectToCurator() {
             window.location.href = "https://curator100.netlify.app";
         }
 
         function monitorRedirects() {
             const iframe = document.getElementById('iframe');
-
             setInterval(() => {
                 try {
                     const currentURL = iframe.contentWindow.location.href;
                     if (currentURL.includes("https://hostbuybd.com/hosting/bdix-web-hosting") || currentURL.includes("youtube.com")) {
-                        iframe.src = "https://hostbuybd.com/qc/"; // Reloads original URL
+                        iframe.src = "https://hostbuybd.com/qc/"; // Reloads the original URL
                     }
                 } catch (error) {
-                    // Cross-origin policy prevents access; expected for blocked redirections
+                    // Cross-origin policy restricts access; expected for blocked redirections
                 }
             }, 500);
         }
+
+        // Monitor iframe on load
+        document.getElementById("iframe").onload = monitorRedirects;
     </script>
 </body>
 </html>
