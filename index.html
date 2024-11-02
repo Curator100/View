@@ -27,7 +27,7 @@
         }
         .iframe-container {
             width: 5in; /* Fixed width */
-            height: 8.5in; /* Fixed height to meet the new requirement */
+            height: 8.5in; /* Fixed height */
             position: relative; /* Relative for overlay positioning */
             overflow: hidden; /* Prevents scrolling inside the iframe */
             display: none; /* Initially hidden */
@@ -35,9 +35,9 @@
         }
         .overlay {
             position: absolute;
-            top: 50%;
+            top: 3in; /* Overlay positioned 3 inches from the top */
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             width: 3.5in;
             height: 1in;
             background-color: #8B0000; /* Dark red color */
