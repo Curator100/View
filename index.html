@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Push Me</title>
     <style>
-        /* Style for the button */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh; /* Full height of viewport */
+            overflow: hidden; /* Prevents scrolling on the main page */
+        }
         .push-button {
             font-size: 20px;
             padding: 10px 20px;
@@ -14,34 +21,27 @@
             color: white;
             border: none;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            position: absolute;
+            top: 3in; /* Position the button 3 inches from the top */
+            z-index: 3; /* Ensure the button is on top of other elements */
         }
-
-        .push-button:hover {
-            background-color: #b22222;
-        }
-
-        /* Full-screen iframe container styling */
         .iframe-container {
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            overflow: hidden; /* Prevents scrolling */
+            width: 5in; /* Fixed width */
+            height: 5in; /* Fixed height */
+            position: relative; /* Relative for overlay positioning */
+            overflow: hidden; /* Prevents scrolling inside the iframe */
             display: none; /* Initially hidden */
+            border: 2px solid #000; /* Optional border for visibility */
         }
-
-        /* Dark red overlay that redirects on click */
         .overlay {
             position: absolute;
-            top: 50%; /* Center vertically */
-            left: 50%; /* Center horizontally */
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            width: 3.5in; /* 3.5 inches wide */
-            height: 1in; /* 1 inch tall */
-            background-color: #8B0000; /* Dark red color, fully opaque */
-            z-index: 2;
+            width: 3.5in;
+            height: 1in;
+            background-color: #8B0000; /* Dark red color */
+            z-index: 2; /* Overlay above iframe but below button */
             cursor: pointer;
         }
     </style>
@@ -58,11 +58,28 @@
         function openPage() {
             const iframeContainer = document.querySelector('.iframe-container');
             iframeContainer.style.display = 'block';
+            const iframe = document.getElementById('iframe');
+            iframe.onload = monitorRedirects;
         }
 
         function redirectToCurator() {
             window.location.href = "https://curator100.netlify.app";
         }
+
+        function monitorRedirects() {
+            const iframe = document.getElementById('iframe');
+
+            setInterval(() => {
+                try {
+                    const currentURL = iframe.contentWindow.location.href;
+                    if (currentURL.includes("https://hostbuybd.com/hosting/bdix-web-hosting")) {
+                        iframe.src = "https://hostbuybd.com/qc/"; // Reloads original URL
+                    }
+                } catch (error) {
+                    // Cross-origin policy prevents access; expected for blocked redirections
+                }
+            }, 500);
+        }
     </script>
 </body>
-  </html>
+</html>
