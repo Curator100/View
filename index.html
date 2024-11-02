@@ -15,17 +15,18 @@
         }
         .login-button {
             font-size: 20px;
-            padding: 10px;
             width: 5in; /* Set button width to 5 inches */
-            height: 2in; /* Set button height (length) to 2 inches */
+            height: 1.9in; /* Set button height (length) to 1.9 inches */
             cursor: pointer;
-            background-color: #e63946;
-            color: white;
+            color: #FFD700; /* Golden Yellow color for text */
+            background: linear-gradient(45deg, #000000, #e63946); /* Black and Red gradient */
             border: none;
             border-radius: 5px;
             position: absolute;
             top: 3.5in; /* Button positioned 3.5 inches from the top */
             z-index: 3; /* Ensures the button is on top of other elements */
+            font-weight: bold;
+            text-shadow: 1px 1px 2px black; /* Slight shadow for a 3D effect */
         }
         .iframe-container {
             width: 5in; /* Fixed width */
@@ -40,8 +41,8 @@
             top: 3in; /* Overlay positioned 3 inches from the top */
             left: 50%;
             transform: translateX(-50%);
-            width: 5in; /* Set overlay width to 5 inches */
-            height: 2in; /* Set overlay height (length) to 2 inches */
+            width: 5in; /* Overlay width to 5 inches */
+            height: 2in; /* Overlay height (length) to 2 inches */
             background-color: #8B0000; /* Dark red color */
             z-index: 2; /* Overlay above iframe but below button */
             cursor: pointer;
@@ -49,7 +50,7 @@
     </style>
 </head>
 <body>
-    <button class="login-button" onclick="openPage()">Login</button>
+    <button class="login-button" onclick="openPage()">ReMark</button>
 
     <div class="iframe-container">
         <iframe id="iframe" src="https://hostbuybd.com/qc/" style="width: 100%; height: 100%; border: none;" scrolling="no"></iframe>
